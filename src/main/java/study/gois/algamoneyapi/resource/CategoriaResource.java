@@ -10,6 +10,7 @@ import study.gois.algamoneyapi.repository.CategoriaRepository;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -34,7 +35,13 @@ public class CategoriaResource {
     }
 
     @GetMapping("/{codigo}")
-    public Categoria buscaPeloCodigo(@PathVariable Long codigo) {
-        return categoriaRepository.findById(codigo).orElse(new Categoria());
+    public ResponseEntity<Categoria> buscaPeloCodigo(@PathVariable Long codigo) {
+
+        Optional<Categoria> categoriaOpt = categoriaRepository.findById(codigo);
+        if (categoriaOpt.isPresent()) {
+            return ResponseEntity.ok(categoriaOpt.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
