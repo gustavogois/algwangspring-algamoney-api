@@ -1,6 +1,10 @@
 package study.gois.algamoneyapi.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -8,9 +12,11 @@ import java.util.Objects;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     private Long codigo;
 
+    @NotNull
+    @Size(min = 3, max = 20)
     private String nome;
 
     public Long getCodigo() {
