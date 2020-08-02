@@ -19,4 +19,11 @@ public class PessoaService {
         BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
         return pessoaRepository.save(pessoaSalva);
     }
+
+    public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
+        Pessoa pessoaSalva = pessoaRepository.findById(codigo)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        pessoaSalva.setAtivo(ativo);
+        pessoaRepository.save(pessoaSalva);
+    }
 }
