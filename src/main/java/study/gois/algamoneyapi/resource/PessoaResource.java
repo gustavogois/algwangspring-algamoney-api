@@ -52,11 +52,7 @@ public class PessoaResource {
     @GetMapping("/{codigo}")
     public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
         Optional<Pessoa> pessoaOpt = pessoaRepository.findById(codigo);
-        if (pessoaOpt.isPresent()) {
-            return ResponseEntity.ok(pessoaOpt.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return pessoaOpt.isPresent() ? ResponseEntity.ok(pessoaOpt.get()) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{codigo}")

@@ -47,10 +47,6 @@ public class CategoriaResource {
     public ResponseEntity<Categoria> buscaPeloCodigo(@PathVariable Long codigo) {
 
         Optional<Categoria> categoriaOpt = categoriaRepository.findById(codigo);
-        if (categoriaOpt.isPresent()) {
-            return ResponseEntity.ok(categoriaOpt.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return categoriaOpt.isPresent() ? ResponseEntity.ok(categoriaOpt.get()) : ResponseEntity.notFound().build();
     }
 }
