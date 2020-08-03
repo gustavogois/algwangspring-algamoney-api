@@ -22,9 +22,9 @@ import java.util.Optional;
 
 public class AlgamoneyResource<T extends AlgamoneyEntity> {
 
-    private final ApplicationEventPublisher publisher;
+    final ApplicationEventPublisher publisher;
     private final JpaRepository repository;
-    protected final AlgamoneyService service;
+    protected AlgamoneyService service;
 
     public AlgamoneyResource(JpaRepository repository, ApplicationEventPublisher publisher, AlgamoneyService service) {
         this.repository = repository;
