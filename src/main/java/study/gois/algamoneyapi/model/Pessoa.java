@@ -10,7 +10,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pessoa")
-public class Pessoa {
+public class Pessoa implements AlgamoneyEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
@@ -24,6 +25,7 @@ public class Pessoa {
     @NotNull
     private Boolean ativo;
 
+    @Override
     public Long getCodigo() {
         return codigo;
     }

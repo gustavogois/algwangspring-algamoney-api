@@ -1,8 +1,5 @@
 package study.gois.algamoneyapi.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,10 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "lancamento")
-public class Lancamento {
+public class Lancamento implements AlgamoneyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +45,9 @@ public class Lancamento {
     @JoinColumn(name = "codigo_pessoa")
     private Pessoa pessoa;
 
+    @Override
     public Long getCodigo() {
-        return codigo;
+        return this.codigo;
     }
 
     public void setCodigo(Long codigo) {
@@ -118,28 +119,30 @@ public class Lancamento {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lancamento that = (Lancamento) o;
+        return codigo.equals(that.codigo);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Lancamento other = (Lancamento) obj;
-        if (codigo == null) {
-            if (other.codigo != null)
-                return false;
-        } else if (!codigo.equals(other.codigo))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 
+    @Override
+    public String toString() {
+        return "Lancamento{" +
+                "codigo=" + codigo +
+                ", descricao='" + descricao + '\'' +
+                ", dataVencimento=" + dataVencimento +
+                ", dataPagamento=" + dataPagamento +
+                ", valor=" + valor +
+                ", observacao='" + observacao + '\'' +
+                ", tipo=" + tipo +
+                ", categoria=" + categoria +
+                ", pessoa=" + pessoa +
+                '}';
+    }
 }
