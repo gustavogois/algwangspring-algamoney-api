@@ -7,6 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import study.gois.algamoneyapi.event.RecursoCriadoEvent;
 import study.gois.algamoneyapi.exceptionhandler.AlgamoneyExceptionHandler;
 import study.gois.algamoneyapi.model.Lancamento;
 import study.gois.algamoneyapi.repository.LancamentoRepository;
+import study.gois.algamoneyapi.repository.filter.LancamentoFilter;
 import study.gois.algamoneyapi.service.LancamentoService;
 import study.gois.algamoneyapi.service.exception.PessoaInexistenteOuInativaException;
 
@@ -33,6 +35,11 @@ public class LancamentoResource extends AlgamoneyResource<Lancamento> {
     public LancamentoResource(LancamentoRepository repository, ApplicationEventPublisher publisher,
                               LancamentoService service) {
         super(repository, publisher, service);
+    }
+
+    @GetMapping("/pesquisar")
+    public List<Lancamento> pesquisar(LancamentoFilter filter) {
+        return ((LancamentoRepository)repository).filtrar(filter);
     }
 
     @PostMapping
